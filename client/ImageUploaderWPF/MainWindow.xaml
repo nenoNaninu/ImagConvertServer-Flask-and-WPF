@@ -14,7 +14,7 @@
 
         <StackPanel Orientation="Horizontal">
             <Button x:Name="Openfile_button" Content="OpenFile" Height="20" VerticalAlignment="Bottom" Click="Select_file"/>
-            <Button x:Name="OcrButton" Content="start ocr" Width="57" Click="Upload_ImgAsync"/>
+            <Button x:Name="Upload_Button" Content="Upload this file" Width="99" Click="Upload_ImgAsync"/>
         </StackPanel>
         <Image HorizontalAlignment="Left" Height="266" Margin="93,59,0,0" Grid.Row="1" VerticalAlignment="Top" Width="567" Name="ImageBox"/>
     </Grid>

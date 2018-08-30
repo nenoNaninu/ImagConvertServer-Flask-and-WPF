@@ -27,6 +27,9 @@ namespace ImageUploaderWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,9 +44,13 @@ namespace ImageUploaderWPF
             {
                 this.imgFileName = dialog.FileName;
             }
+            Bitmap bitmap = new Bitmap(imgFileName);
+            var bitmapPtr = bitmap.GetHbitmap();
+            ImageBox.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapPtr, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            DeleteObject(bitmapPtr);
         }
 
-        
+
         private async void Upload_ImgAsync(object sender, RoutedEventArgs e)
         {
             Bitmap bitmap = new Bitmap(imgFileName);
@@ -62,7 +69,9 @@ namespace ImageUploaderWPF
                         byte[] data = await response.Content.ReadAsByteArrayAsync();
                         var responseBin = new MemoryStream(data);
                         Bitmap responseBitmap = new Bitmap(responseBin);
-                        ImageBox.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(responseBitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        var bitmapPtr = responseBitmap.GetHbitmap();
+                        ImageBox.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmapPtr, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        DeleteObject(bitmapPtr);
                     }
                 }
                 catch (Exception exception)
