@@ -16,6 +16,9 @@ def convert(id):
         data = request.data
         img = np.array(Image.open(io.BytesIO(data)))
         img = mosaic(img,0.05)
+        # img = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
+        # img = cv2.Laplacian(img,cv2.CV_8U,ksize=3)
+        # img = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
         img = Image.fromarray(np.uint8(img))
         byteio = io.BytesIO()
         img.save(byteio,"png")
@@ -34,7 +37,6 @@ def mosaic(img, alpha):
     img = cv2.resize(img,(w, h), interpolation=cv2.INTER_NEAREST)
 
     return img
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000)
