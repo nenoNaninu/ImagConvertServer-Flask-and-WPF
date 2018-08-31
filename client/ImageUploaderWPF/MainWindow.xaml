@@ -15,6 +15,7 @@
         <StackPanel Orientation="Horizontal">
             <Button x:Name="Openfile_button" Content="OpenFile" Height="20" VerticalAlignment="Bottom" Click="Select_file"/>
             <Button x:Name="Upload_Button" Content="Upload this file" Width="99" Click="Upload_ImgAsync"/>
+            <TextBox TextWrapping="Wrap" Text="url (http:hogehoge)" Width="205" Margin="0,0,0,-0.429" Name="textBox"/>
         </StackPanel>
         <Image HorizontalAlignment="Left" Height="266" Margin="93,59,0,0" Grid.Row="1" VerticalAlignment="Top" Width="567" Name="ImageBox"/>
     </Grid>

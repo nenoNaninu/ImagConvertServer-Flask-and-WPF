@@ -62,7 +62,7 @@ namespace ImageUploaderWPF
                 {
                     using (var client = new HttpClient())
                     {
-                        string endpoint = "http://127.0.0.1:5000/convert";
+                        string endpoint = this.textBox.Text;
                         var content = new ByteArrayContent(bytebBuffer);
                         content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                         HttpResponseMessage response = await client.PostAsync(endpoint, content);
