@@ -15,16 +15,16 @@ def convert():
         data = request.data
         img = np.array(Image.open(io.BytesIO(data)))
         img = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
-        img = cv2.Laplacian(img,cv2.CV_32F,ksize=3)
+        img = cv2.Laplacian(img,cv2.CV_8U,ksize=3)
         img = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
         img = Image.fromarray(np.uint8(img))
         byteio = io.BytesIO()
-        img.save(byteio,"bmp")
+        img.save(byteio,"png")
         response = make_response()
         response.data = byteio.getbuffer()
         response.headers["Content-type"] = "application/octet-stream"
         return response
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0",port=5000)
 
